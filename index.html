@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星野工具箱</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+body{
+  padding:20px;
+  transition:background 0.3s, color 0.3s;
+  background:url(https://p.qqan.com/up/2021-3/16153719346965572.jpg) center center fixed no-repeat;
+  background-size:cover;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0);
+  z-index:-1;
+}
+body.light {
+  color:#222;
+}
+body.light .card,
+body.light .time-card,
+body.light .time-item,
+body.light .panel,
+body.light .about,
+body.light .user {
+  background:rgba(255,255,255,0.2);
+  color:#222;
+  box-shadow:0 4px 12px rgba(0,0,0,0.06);
+}
+body.light .time-progress {
+  background:rgba(0,0,0,0.1);
+}
+body.light select {
+  background:rgba(255,255,255,0.85);
+  color:#222;
+  border:1px solid #ddd;
+}
+body.light .time-text,
+body.light .about .item,
+body.light .info .email {
+  color:#555;
+}
+body.dark {
+  color:#fff;
+}
+body.dark .card,
+body.dark .time-card,
+body.dark .time-item,
+body.dark .panel,
+body.dark .about,
+body.dark .user {
+  background:rgba(255,255,255,0.03);
+  color:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+body.dark .time-progress {
+  background:rgba(255,255,255,0.2);
+}
+body.dark select {
+  background:rgba(255,255,255,0.18);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.25);
+}
+body.dark .time-text,
+body.dark .about .item,
+body.dark .info .email {
+  color:rgba(255,255,255,0.85);
+}
+.card{border-radius:16px;padding:24px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.card h2{font-size:18px}
+.btn{padding:10px 20px;background:#456efa;color:#fff;border:none;border-radius:24px;text-decoration:none;font-size:15px}
+.time-card{border-radius:16px;margin-bottom:16px;overflow:hidden}
+.time-header{padding:18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.time-header h3{font-size:16px}
+.time-header .subtitle{font-size:13px;margin-top:4px}
+.time-content{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.time-content.open{max-height:1000px}
+.time-item{padding:18px;border-top:1px solid rgba(255,255,255,0.1)}
+.time-title{font-size:15px;margin-bottom:8px}
+.time-progress{width:100%;height:8px;border-radius:4px;overflow:hidden}
+.time-bar{height:100%;background:#456efa;border-radius:4px;transition:width 0.5s ease}
+.time-text{font-size:13px;margin-top:6px}
+.panel{border-radius:16px;padding:16px;margin-bottom:16px}
+.panel-title{font-size:15px;margin-bottom:10px}
+select{width:100%;padding:10px;border-radius:10px;font-size:14px;outline:none}
+.about{border-radius:16px;padding:22px;margin-top:16px}
+.about h3{font-size:17px;margin-bottom:12px}
+.about .item{margin:8px 0}
+.about a{color:#456efa;text-decoration:none}
+.user{display:flex;align-items:center;border-radius:16px;padding:20px;margin-top:16px}
+.avatar{width:70px;height:70px;border-radius:50%;object-fit:cover;margin-right:16px;border:2px solid #456efa}
+.info{flex:1}
+.info .name{font-size:16px;font-weight:bold}
+.info .email{font-size:13px;margin-top:4px}
+</style>
+</head>
+<body class="auto">
+<div class="card">
+<h2 id="title_tool">星野工具箱全版本下载</h2>
+<a href="list.html" class="btn" id="btn_enter">进入</a>
+</div>
+<div class="time-card">
+<div class="time-header" id="timeHeader">
+<div>
+<h3 id="timeMainTitle">⏱️ 时间与时区设置</h3>
+<div class="subtitle" id="timeSubtitle">实时时间、倒计时、时区切换</div>
+</div>
+<span id="timeArrow">▼</span>
+</div>
+<div class="time-content" id="timeContent">
+<div class="time-item">
+<div class="time-title" id="currentTimeTitle">⏰ 北京时间 (UTC+8)</div>
+<div class="time-text" id="currentTimeText">2026-02-20 16:00:00</div>
+</div>
+<div class="time-item">
+<div class="time-title" id="set_timezone">🌍 时区设置</div>
+<select id="tzSelect">
+<option value="Asia/Shanghai">中国-北京时间 (UTC+8)</option>
+<option value="Asia/Tokyo">日本-东京时间 (UTC+9)</option>
+<option value="Asia/Seoul">韩国-首尔 (UTC+9)</option>
+<option value="Asia/Singapore">新加坡 (UTC+8)</option>
+<option value="Europe/Moscow">俄罗斯-莫斯科 (UTC+3)</option>
+<option value="Europe/London">英国-伦敦 (UTC±0)</option>
+<option value="Europe/Berlin">德国-柏林 (UTC+1)</option>
+<option value="America/New_York">美国-纽约 (UTC-4/-5)</option>
+<option value="America/Los_Angeles">美国-洛杉矶 (UTC-7/-8)</option>
+<option value="Brazil/East">巴西 (UTC-3)</option>
+</select>
+</div>
+<div class="time-item">
+<div class="time-title" id="nextMinTitle">⏱️ 距离下一分钟</div>
+<div class="time-progress"><div class="time-bar" id="minBar"></div></div>
+<div class="time-text" id="nextMinText">还剩 100% / 59s</div>
+</div>
+<div class="time-item">
+<div class="time-title" id="time_hour">🕒 距离下一小时</div>
+<div class="time-progress"><div class="time-bar" id="hourBar"></div></div>
+<div class="time-text" id="hourText">距离17点还剩 50% / 30m 0s</div>
+</div>
+<div class="time-item">
+<div class="time-title" id="time_day">📅 今日剩余进度</div>
+<div class="time-progress"><div class="time-bar" id="dayBar"></div></div>
+<div class="time-text" id="dayText">今天还剩 50% / 12h 0m 0s</div>
+</div>
+<div class="time-item">
+<div class="time-title" id="time_year">🎆 今年剩余进度</div>
+<div class="time-progress"><div class="time-bar" id="yearBar"></div></div>
+<div class="time-text" id="yearText">今年还剩 80% / 290d 0h 0m 0s</div>
+</div>
+</div>
+</div>
+<div class="about">
+<h3 id="about_us">关于我们</h3>
+<div class="item" id="dev_script">脚本开发者：快手@伊洛玛丽--光源万创</div>
+<div class="item" id="dev_web">网页开发者：快手@伊洛玛丽--光源万创</div>
+</div>
+<div class="about">
+<h3 id="chat">探讨聊天</h3>
+<div class="item">QQ群1：<a href="#">点击加入</a></div>
+<div class="item">QQ群2：<a href="#">点击加入</a></div>
+<div class="item">TG主频道：<a href="#">点击加入</a></div>
+</div>
+<div class="about">
+<h3 id="contact">联系我们</h3>
+<div class="user">
+<img class="avatar" src="http://cccimg.com/view.php/237ce7f3e5683561662803ba9be27897.jpg">
+<div class="info">
+<div class="name" id="name1">是星野呀（QQ）</div>
+<div class="email">1690424244@qq.com</div>
+</div>
+</div>
+<div class="user" style="margin-top:12px">
+<img class="avatar" src="http://cccimg.com/view.php/f368df58feaf986d23e0df41ef9b85b1.jpg">
+<div class="info">
+<div class="name" id="name2">伊洛玛丽--光源万创（快手）</div>
+<div class="email">xingyeNB886</div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-title" id="set_lang">🌐 语言设置</div>
+<select id="langSelect">
+<option value="zh-CN">简体中文</option>
+<option value="zh-TW">繁體中文</option>
+<option value="en">English</option>
+<option value="ja">日本語</option>
+<option value="ko">한국어</option>
+<option value="ru">Русский</option>
+<option value="pt">Português</option>
+</select>
+</div>
+<div class="panel">
+<div class="panel-title" id="set_theme">🎨 主题设置</div>
+<select id="themeSelect">
+<option value="auto">跟随系统</option>
+<option value="light">浅色模式</option>
+<option value="dark">深色模式</option>
+</select>
+</div>
+<script>
+const bgList = [
+"http://cccimg.com/view.php/a503e1eec334c36f90a27efcf6f907d7.png",
+"http://cccimg.com/view.php/ae25e6f82503139013ddf44057d1446a.jpg",
+"http://cccimg.com/view.php/96eac1a49ad2f5c93ee7009e5d185938.png",
+"http://cccimg.com/view.php/9244a28b28e80495bc3a5c5fd1d034db.jpg",
+"http://cccimg.com/view.php/1c8335aadd2ba4197e102cac29b3ed67.png",
+"http://cccimg.com/view.php/f2dfe7d50bd6aacdbc9f2e91655c5c38.png",
+"http://cccimg.com/view.php/0708b8e2f3839818ebe1913917c03999.png",
+"http://cccimg.com/view.php/9cb2765183e77c98ddde6a51642d3844.png",
+"http://cccimg.com/view.php/3a407e1046b2647437bb4a125feda3b3.jpg",
+"http://cccimg.com/view.php/78c5ea802b320ad08b1c29c15cc94431.jpg"
+];
+const langs={
+"zh-CN":{title_tool:"星野工具箱全版本下载",btn_enter:"进入",timeMainTitle:"⏱️ 时间与时区设置",timeSubtitle:"实时时间、倒计时、时区切换",time_hour:"🕒 距离下一小时",time_day:"📅 今日剩余进度",time_year:"🎆 今年剩余进度",set_timezone:"🌍 时区设置",set_lang:"🌐 语言设置",set_theme:"🎨 主题设置",about_us:"关于我们",chat:"探讨聊天",contact:"联系我们",dev_script:"脚本开发者：快手@伊洛玛丽--光源万创",dev_web:"网页开发者：快手@伊洛玛丽--光源万创",name1:"是星野呀（QQ）",name2:"伊洛玛丽--光源万创（快手）",nextMinTitle:"⏱️ 距离下一分钟",currentTimeTitle:"⏰ 北京时间 (UTC+8)"},
+"zh-TW":{title_tool:"星野工具箱全版本下載",btn_enter:"進入",timeMainTitle:"⏱️ 時間與時區設定",timeSubtitle:"即時時間、倒數計時、時區切換",time_hour:"🕒 距離下一小時",time_day:"📅 今日剩餘進度",time_year:"🎆 今年剩餘進度",set_timezone:"🌍 時區設定",set_lang:"🌐 語言設定",set_theme:"🎨 主題設定",about_us:"關於我們",chat:"討論聊天",contact:"聯繫我們",dev_script:"腳本開發者：快手@伊洛瑪麗--光源萬創",dev_web:"網頁開發者：快手@伊洛瑪麗--光源萬創",name1:"是星野呀（QQ）",name2:"伊洛瑪麗--光源萬創（快手）",nextMinTitle:"⏱️ 距離下一分鐘",currentTimeTitle:"⏰ 北京時間 (UTC+8)"},
+"en":{title_tool:"Hoshino Toolbox Download",btn_enter:"Enter",timeMainTitle:"⏱️ Time & Timezone",timeSubtitle:"Real time, countdown, timezone",time_hour:"🕒 Next Hour",time_day:"📅 Today Remain",time_year:"🎆 Year Remain",set_timezone:"🌍 Timezone",set_lang:"🌐 Language",set_theme:"🎨 Theme",about_us:"About Us",chat:"Chat",contact:"Contact",dev_script:"Dev: Yiluomali",dev_web:"Web Dev: Yiluomali",name1:"Hoshino (QQ)",name2:"Yiluomali (Kuaishou)",nextMinTitle:"⏱️ Next Minute",currentTimeTitle:"⏰ Beijing Time (UTC+8)"},
+"ja":{title_tool:"星野ツールボックス ダウンロード",btn_enter:"入る",timeMainTitle:"⏱️ 時間とタイムゾーン設定",timeSubtitle:"リアルタイム、カウントダウン、タイムゾーン切り替え",time_hour:"🕒 次の時間まで",time_day:"📅 今日の残り",time_year:"🎆 今年の残り",set_timezone:"🌍 タイムゾーン",set_lang:"🌐 言語",set_theme:"🎨 テーマ",about_us:"私たちについて",chat:"チャット",contact:"お問い合わせ",dev_script:"開発者：イロマリ",dev_web:"WEB開発：イロマリ",name1:"ほしの (QQ)",name2:"イロマリ (快手)",nextMinTitle:"⏱️ 次の分まで",currentTimeTitle:"⏰ 北京時間 (UTC+8)"},
+"ko":{title_tool:"호시노 툴박스 다운로드",btn_enter:"들어가기",timeMainTitle:"⏱️ 시간 및 시간대 설정",timeSubtitle:"실시간, 카운트다운, 시간대 변경",time_hour:"🕒 다음 시간까지",time_day:"📅 오늘 남은 시간",time_year:"🎆 올해 남은 시간",set_timezone:"🌍 타임존",set_lang:"🌐 언어",set_theme:"🎨 테마",about_us:"회사 소개",chat:"채팅",contact:"문의",dev_script:"개발자: 이루오말리",dev_web:"웹 개발: 이루오말리",name1:"호시노 (QQ)",name2:"이루오말리 (쾌수)",nextMinTitle:"⏱️ 다음 분까지",currentTimeTitle:"⏰ 베이징 시간 (UTC+8)"},
+"ru":{title_tool:"Ящик инструментов Хосино",btn_enter:"Войти",timeMainTitle:"⏱️ Время и часовой пояс",timeSubtitle:"Реальное время, обратный отсчет, смену пояса",time_hour:"🕒 До следующего часа",time_day:"📅 Осталось сегодня",time_year:"🎆 Осталось в году",set_timezone:"🌍 Часовой пояс",set_lang:"🌐 Язык",set_theme:"🎨 Тема",about_us:"О нас",chat:"Чат",contact:"Контакты",dev_script:"Разработчик: Илоумари",dev_web:"Веб-разработчик: Илоумари",name1:"Хосино (QQ)",name2:"Илоумари (Куайшоу)",nextMinTitle:"⏱️ До следующей минуты",currentTimeTitle:"⏰ Пекинское время (UTC+8)"},
+"pt":{title_tool:"Caixa de Ferramentas Hoshino",btn_enter:"Entrar",timeMainTitle:"⏱️ Hora e Fuso Horário",timeSubtitle:"Tempo real, contagem regressiva, mudança de fuso",time_hour:"🕒 Para a próxima hora",time_day:"📅 Resto de hoje",time_year:"🎆 Resto do ano",set_timezone:"🌍 Fuso horário",set_lang:"🌐 Idioma",set_theme:"🎨 Tema",about_us:"Sobre nós",chat:"Bate-papo",contact:"Contato",dev_script:"Dev: Yiluomali",dev_web:"Web Dev: Yiluomali",name1:"Hoshino (QQ)",name2:"Yiluomali (Kuaishou)",nextMinTitle:"⏱️ Próximo minuto",currentTimeTitle:"⏰ Hora de Pequim (UTC+8)"}
+};
+let currentLang=localStorage.getItem("lang")||"zh-CN";
+let currentTz=localStorage.getItem("tz")||"Asia/Shanghai";
+let currentTheme=localStorage.getItem("theme")||"auto";
+const tzNameMap={
+"Asia/Shanghai":"北京时间 (UTC+8)",
+"Asia/Tokyo":"东京时间 (UTC+9)",
+"Asia/Seoul":"首尔时间 (UTC+9)",
+"Asia/Singapore":"新加坡时间 (UTC+8)",
+"Europe/Moscow":"莫斯科时间 (UTC+3)",
+"Europe/London":"伦敦时间 (UTC±0)",
+"Europe/Berlin":"柏林时间 (UTC+1)",
+"America/New_York":"纽约时间 (UTC-4/-5)",
+"America/Los_Angeles":"洛杉矶时间 (UTC-7/-8)",
+"Brazil/East":"巴西利亚时间 (UTC-3)"
+};
+document.getElementById("langSelect").value=currentLang;
+document.getElementById("tzSelect").value=currentTz;
+document.getElementById("themeSelect").value=currentTheme;
+function applyLang(lang){
+const d=langs[lang];
+for(let k in d){
+let el=document.getElementById(k);
+if(el)el.innerText=d[k];
+}
+document.getElementById("currentTimeTitle").innerText="⏰ "+tzNameMap[currentTz];
+localStorage.setItem("lang",lang);
+}
+document.getElementById("langSelect").onchange=e=>{
+currentLang=e.target.value;
+applyLang(currentLang);
+};
+document.getElementById("tzSelect").onchange=e=>{
+currentTz=e.target.value;
+localStorage.setItem("tz",currentTz);
+document.getElementById("currentTimeTitle").innerText="⏰ "+tzNameMap[currentTz];
+};
+document.getElementById("themeSelect").onchange=e=>{
+currentTheme=e.target.value;
+applyTheme(currentTheme);
+localStorage.setItem("theme",currentTheme);
+};
+function applyTheme(t){
+const b=document.body;
+b.classList.remove("light","dark","auto");
+if(t==="auto"){
+b.classList.add("auto");
+b.classList.add(window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
+}else{
+b.classList.add(t);
+}
+}
+function getNow(){
+return new Date(new Date().toLocaleString("en-US",{timeZone:currentTz}));
+}
+function fmt(d){
+const y=d.getFullYear(),
+m=String(d.getMonth()+1).padStart(2,"0"),
+day=String(d.getDate()).padStart(2,"0"),
+hh=String(d.getHours()).padStart(2,"0"),
+mm=String(d.getMinutes()).padStart(2,"0"),
+ss=String(d.getSeconds()).padStart(2,"0");
+return `${y}-${m}-${day} ${hh}:${mm}:${ss}`;
+}
+const timeContent=document.getElementById("timeContent");
+const timeArrow=document.getElementById("timeArrow");
+document.getElementById("timeHeader").onclick=()=>{
+timeContent.classList.toggle("open");
+timeArrow.innerText=timeContent.classList.contains("open")?"▲":"▼";
+};
+function updateAll(){
+const now=getNow();
+const h=now.getHours(),m=now.getMinutes(),s=now.getSeconds();
+document.getElementById("currentTimeText").innerText=fmt(now);
+const leftMinSec=60-s;
+const minPer=leftMinSec/60*100;
+document.getElementById("minBar").style.width=minPer+"%";
+document.getElementById("nextMinText").innerText=`还剩 ${minPer.toFixed(1)}% / ${leftMinSec}s`;
+const leftHSec=3600-(m*60+s);
+const hPer=leftHSec/3600*100;
+const leftHMin=Math.floor(leftHSec/60);
+const leftHS=leftHSec%60;
+document.getElementById("hourBar").style.width=hPer+"%";
+document.getElementById("hourText").innerText=`距离${h+1}点还剩 ${hPer.toFixed(1)}% / ${leftHMin}m ${leftHS}s`;
+const leftDaySec=86400-(h*3600+m*60+s);
+const dPer=leftDaySec/86400*100;
+const dh=Math.floor(leftDaySec/3600);
+const dm=Math.floor((leftDaySec%3600)/60);
+const ds=leftDaySec%60;
+document.getElementById("dayBar").style.width=dPer+"%";
+document.getElementById("dayText").innerText=`今天还剩 ${dPer.toFixed(1)}% / ${dh}h ${dm}m ${ds}s`;
+const y=now.getFullYear();
+const startYear=new Date(y,0,1),endYear=new Date(y+1,0,1);
+const leftYearMS=endYear-now;
+const totalYearMS=endYear-startYear;
+const yPer=leftYearMS/totalYearMS*100;
+const yd=Math.floor(leftYearMS/86400000);
+const yh=Math.floor((leftYearMS%86400000)/3600000);
+const ym=Math.floor((leftYearMS%3600000)/60000);
+const ys=Math.floor((leftYearMS%60000)/1000);
+document.getElementById("yearBar").style.width=yPer+"%";
+document.getElementById("yearText").innerText=`今年还剩 ${yPer.toFixed(1)}% / ${yd}d ${yh}h ${ym}m ${ys}s`;
+}
+window.matchMedia("(prefers-color-scheme:dark)").onchange=()=>{
+if(currentTheme==="auto")applyTheme("auto");
+};
+const randomBg = bgList[Math.floor(Math.random() * bgList.length)];
+document.body.style.backgroundImage = `url(${randomBg})`;
+applyLang(currentLang);
+applyTheme(currentTheme);
+updateAll();
+setInterval(updateAll,1000);
+</script>
+</body>
+</html>

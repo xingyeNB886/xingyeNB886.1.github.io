@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>全版本下载</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+            padding: 20px;
+        }
+
+        .back {
+            margin-bottom: 16px;
+        }
+
+        .back a {
+            color: #456efa;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .item {
+            background: #fff;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .item .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .item h3 {
+            font-size: 20px;
+            color: #222;
+        }
+
+        .item .tip {
+            font-size: 14px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background: #456efa;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #365edc;
+            transform: translateY(-1px);
+        }
+
+        .version-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .version-list.active {
+            max-height: 2000px;
+        }
+
+        .version-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .version-list.active .version-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .version-list.active .version-item:nth-child(1) { transition-delay: 0.05s; }
+        .version-list.active .version-item:nth-child(2) { transition-delay: 0.1s; }
+        .version-list.active .version-item:nth-child(3) { transition-delay: 0.15s; }
+        .version-list.active .version-item:nth-child(4) { transition-delay: 0.2s; }
+        .version-list.active .version-item:nth-child(5) { transition-delay: 0.25s; }
+        .version-list.active .version-item:nth-child(6) { transition-delay: 0.3s; }
+        .version-list.active .version-item:nth-child(7) { transition-delay: 0.35s; }
+        .version-list.active .version-item:nth-child(8) { transition-delay: 0.4s; }
+        .version-list.active .version-item:nth-child(9) { transition-delay: 0.45s; }
+        .version-list.active .version-item:nth-child(10) { transition-delay: 0.5s; }
+        .version-list.active .version-item:nth-child(11) { transition-delay: 0.55s; }
+
+        .version-info {
+            background: #f0f2f5;
+            padding: 0 12px;
+            border-radius: 8px;
+            margin-top: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .version-info.active {
+            padding: 12px;
+            margin-top: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .version-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .version-btn {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .info-btn {
+            background: #e8f4ff;
+            color: #456efa;
+        }
+
+        .info-btn:hover {
+            background: #d4e8ff;
+        }
+
+        .down-btn {
+            background: #456efa;
+            color: #fff;
+        }
+
+        .down-btn:hover {
+            background: #365edc;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="back">
+        <a href="index.html">← 返回</a>
+    </div>
+
+    <!-- 简易单功能加载图制作区 -->
+    <div class="item">
+        <div class="title">
+            <div>
+                <h3>简易单功能加载图制作区</h3>
+                <div class="tip">和平精英加载图一键替换工具</div>
+            </div>
+            <button class="btn" onclick="toggleList('list1')">查看</button>
+        </div>
+        <div class="version-list" id="list1">
+            <!-- 8.1 -->
+            <div class="version-item">
+                <div>2025.12.27 | 8.1</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/c245922c889cb9b171df0aacce51a3e2.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                8.1版本更新信息：<br>
+                1. 修复目录获取，动态获取脚本当前路径，可放任意文件夹<br>
+                2. 新增输出目录自动清理/创建函数，逻辑更规范<br>
+                3. 优化指定路径，支持文件夹递归搜索，可直接选目录批量导图<br>
+                4. 强化路径安全限制，仅允许读取脚本目录内文件，更安全<br>
+                5. 修复选择逻辑，无效序号强制重新输入，不闪退<br>
+                6. 修复内存计算统计错误，数据更精准<br>
+                7. 简化冗余函数，代码更精简，运行更快<br>
+                8. 整体稳定性拉满，适配更多设备终端
+            </div>
+
+            <!-- 8.0 -->
+            <div class="version-item">
+                <div>2025.12.26 | 8.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/c23e76238a3ef3abcf70e091d011b004.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                8.0版本更新信息：<br>
+                1. 固定脚本运行目录，路径更稳定<br>
+                2. 新增图片格式自动过滤，支持png/jpg/jpeg/bmp/webp<br>
+                3. 新增内存占用智能计算，显示大小/数量/所需空间<br>
+                4. 新增渐变色文件列表，视觉更美观<br>
+                5. 重构运行逻辑，合并批量/单文件流程<br>
+                6. 强化连号解析，支持多关键词+连号混合搜索<br>
+                7. 新增生成前内存确认，避免空间不足<br>
+                8. 全界面彩色渐变美化，交互更直观
+            </div>
+
+            <!-- 7.0 -->
+            <div class="version-item">
+                <div>2025.12.21 | 7.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/92606bc69de961dad960ef9a195d5150.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                7.0版本更新信息：<br>
+                1. 核心修复：彻底解决序号显示错乱、选择无效BUG<br>
+                2. 新增连号选择，支持1-5格式快速多选<br>
+                3. 重构搜索+选择逻辑，序号与文件严格绑定<br>
+                4. 优化空输入，默认选中第一个文件<br>
+                5. 修复目标文件分配算法，解决漏生成错位<br>
+                6. 全脚本代码重构，逻辑更清晰<br>
+                7. 简化菜单交互，步骤更少<br>
+                8. 强化异常拦截，无效输入自动过滤
+            </div>
+
+            <!-- 6.0 -->
+            <div class="version-item">
+                <div>2025.12.20 | 6.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/a110291da19ecc3428770610378bda30.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                6.0版本更新信息：<br>
+                1. 新增权限自动检测，识别Root/无Root模式<br>
+                2. 新增Root自动替换，直接写入游戏目录<br>
+                3. 新增无Root手动引导，MT管理器分步教程<br>
+                4. 固定和平精英加载图目标路径<br>
+                5. 新增回车确认机制，防止误操作<br>
+                6. 优化自定义文件搜索逻辑<br>
+                7. 优化界面排版，提示更规整<br>
+                8. 精简冗余代码，运行更稳定
+            </div>
+
+            <!-- 5.0 -->
+            <div class="version-item">
+                <div>2025.12.13 | 5.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/8ada8f9ebb156a688d59ac02e2e6150c.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                5.0版本更新信息：<br>
+                1. 批量修改新增自定义多文件选项，支持多选文件<br>
+                2. 优化分配算法，支持多剩余目标随机分配<br>
+                3. 新增失败文件列表展示，直观查看失败文件<br>
+                4. 加入文件写入重试机制，提升生成成功率<br>
+                5. 统一输出文件权限为777，解决权限问题<br>
+                6. 自定义文件支持空格分隔多选，无效文件自动跳过<br>
+                7. 新增开源标识，规范界面排版<br>
+                8. 强化异常处理，自动拦截各类错误
+            </div>
+
+            <!-- 4.0 -->
+            <div class="version-item">
+                <div>2025.12.12 | 4.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/9573e77c801e4edffdc83602582a7117.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                4.0版本更新信息：<br>
+                1. 新增双模式主菜单，支持批量/单文件修改切换<br>
+                2. 批量模式支持1~6个源文件均分替换，自动检测文件缺失<br>
+                3. 单文件模式支持精准/模糊搜索、自定义路径三种获取方式<br>
+                4. 搜索支持脚本目录+子目录，自动排除输出文件夹<br>
+                5. 优化路径兼容，支持绝对/相对路径，自动识别有效文件<br>
+                6. 交互流程优化，错误提示更精准<br>
+                7. 脚本函数化模块化，便于维护<br>
+                8. 新增输出目录权限设置，提升稳定性
+            </div>
+
+            <!-- 3.0 -->
+            <div class="version-item">
+                <div>2025.12.7 | 3.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/afef6e4d4663238a0c854eb3cf548dd1.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                3.0版本更新信息：<br>
+                1. 支持1~6个源文件自由选择，适配多素材批量生成<br>
+                2. 新增智能分配逻辑，按文件数均分61个目标<br>
+                3. 增加文件完整性校验，避免复制损坏<br>
+                4. 新增源文件存在性检测，提前拦截错误<br>
+                5. 优化交互与日志，代码更模块化易维护
+            </div>
+
+            <!-- 2.0 -->
+            <div class="version-item">
+                <div>2025.12.7 | 2.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/b2d30a5c77183c054c5c01807780d5ee.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                2.0版本更新信息：<br>
+                优化：<br>
+                1. 移除交互确认，脚本全自动静默执行<br>
+                2. 简化目录判断逻辑，代码更精简健壮<br>
+                3. 文件名数组分行排版，便于维护排查<br>
+                更新：<br>
+                1. 新增1个目标文件名<br>
+                2. 修复1处文件名拼写错误<br>
+                改变：<br>
+                自动清空输出文件夹，无人工确认，执行更高效
+            </div>
+
+            <!-- 1.0 -->
+            <div class="version-item">
+                <div>2025.12.7 | 1.0</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="http://cccimg.com/down.php/301a7c68dfbac634a92c01ffd3499c26.sh" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                1.0版本更新信息：初始版本发布，实现基础加载图制作功能。
+            </div>
+        </div>
+    </div>
+
+    <!-- RUALA工具箱区 -->
+    <div class="item">
+        <div class="title">
+            <div>
+                <h3>RUALA工具箱区</h3>
+                <div class="tip">多功能综合工具箱，持续更新维护</div>
+            </div>
+            <button class="btn" onclick="toggleList('list2')">查看</button>
+        </div>
+        <div class="version-list" id="list2">
+            <div class="version-item">
+                <div>2026.1.23 | 26.1.3</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="#" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                26.1.3版本更新信息：优化了算法，提升了处理速度。
+            </div>
+            <div class="version-item">
+                <div>2026.1.21 | 26.1.1</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="#" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                26.1.1版本更新信息：修复了崩溃问题，提升了稳定性。
+            </div>
+        </div>
+    </div>
+
+    <!-- ADB模块区 -->
+    <div class="item">
+        <div class="title">
+            <div>
+                <h3>ADB模块区</h3>
+                <div class="tip">一键制作并替换</div>
+            </div>
+            <button class="btn" onclick="toggleList('list3')">查看</button>
+        </div>
+        <div class="version-list" id="list3">
+            <div class="version-item">
+                <div>2026.2.12 | ADB-26.2.1</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="#" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                ADB-26.2.1更新信息：支持新设备，优化连接速度，修复已知问题。
+            </div>
+            <div class="version-item">
+                <div>2026.2.6 | ADB-26.1.1</div>
+                <div class="version-buttons">
+                    <a href="javascript:void(0)" class="version-btn info-btn" onclick="toggleInfo(this)">信息</a>
+                    <a href="#" class="version-btn down-btn">下载</a>
+                </div>
+            </div>
+            <div class="version-info">
+                ADB-26.1.1更新信息：修复了连接失败的问题，提升了兼容性。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let activeListId = null;
+        let activeInfoBox = null;
+
+        function toggleList(id) {
+            const list = document.getElementById(id);
+            const btn = list.closest('.item').querySelector('.btn');
+            if (activeListId === id) {
+                list.classList.remove('active');
+                btn.textContent = '查看';
+                activeListId = null;
+            } else {
+                document.querySelectorAll('.version-list.active').forEach(item => {
+                    item.classList.remove('active');
+                    item.closest('.item').querySelector('.btn').textContent = '查看';
+                });
+                list.classList.add('active');
+                btn.textContent = '收起';
+                activeListId = id;
+            }
+        }
+
+        function toggleInfo(el) {
+            const infoBox = el.closest('.version-item').nextElementSibling;
+            if (activeInfoBox && activeInfoBox !== infoBox) {
+                activeInfoBox.classList.remove('active');
+                activeInfoBox.previousElementSibling.querySelector('.info-btn').textContent = '信息';
+            }
+            if (infoBox.classList.contains('active')) {
+                infoBox.classList.remove('active');
+                el.textContent = '信息';
+                activeInfoBox = null;
+            } else {
+                infoBox.classList.add('active');
+                el.textContent = '收起';
+                activeInfoBox = infoBox;
+            }
+        }
+    </script>
+</body>
+</html>
